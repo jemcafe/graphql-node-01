@@ -1,6 +1,5 @@
 const graphql = require('graphql');
 
-
 const { GraphQLObjectType, GraphQLString, GraphQLSchema } = graphql;
 
 // dummy data
@@ -20,7 +19,7 @@ const BookType = new GraphQLObjectType({
    })
 });
 
-// Query - When a book is queried, this will be used
+// Query - When a book is queried, this object will be used
 const rootQuery = new GraphQLObjectType({
    name: 'RootQueryType',
    fields: {
@@ -32,7 +31,7 @@ const rootQuery = new GraphQLObjectType({
          },
          resolve: (parent, args) => {
             // Get data from database
-            return books.filter(e => e.id === args.id);
+            return books.find(e => e.id === args.id);
          }
       }
    }

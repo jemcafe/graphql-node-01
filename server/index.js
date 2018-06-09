@@ -7,7 +7,7 @@ const app = express();
 // Graphql endpoint - If a request is made to graphql, it's handled by express-graphql. express-graphql requires a schema.
 app.use('/graphql', graphqlHTTP({
    schema,
-   graphiql: true, // graphiql is an in broswer IDE for testing the schema
+   graphiql: true, // graphiql is an in broswer IDE for query testing
 }));
 
 const port = 3080;
