@@ -3,9 +3,10 @@ const graphql = require('graphql');
 const { 
    GraphQLSchema, 
    GraphQLObjectType, 
-   GraphQLString,     // GraphqlString - string inputs
-   GraphQLInt,        // GraphqlInt - integer inputs
-   GraphQLID          // GraphqlID - number or string inputs (ex. 2 or "2")
+   GraphQLString,     // GraphqlString - string types
+   GraphQLInt,        // GraphqlInt - integer types
+   GraphQLID,         // GraphqlID - number or string types (ex. 2 or "2")
+   GraphQLList        // GraphQLList - list type
 } = graphql;
 
 // dummy data
@@ -30,8 +31,7 @@ const BookType = new GraphQLObjectType({
       author: { 
          type: AuthorType,
          resolve: (parent, args) => {
-            // The parent's authorId must match the author's id
-            console.log('parent', parent);
+            // The parent is the book object
             return authors.find(e => e.id === parent.authorId);
          }
       }
@@ -43,7 +43,14 @@ const AuthorType = new GraphQLObjectType({
    fields: () => ({
       id: { type: GraphQLID },
       name: { type: GraphQLString },
-      age: { type: GraphQLInt }
+      age: { type: GraphQLInt },
+      books: {
+         type: new GraphQLList(BookType), // A list of books
+         resolve: (parent, args) => {
+            // The author's id must match the book's authorId
+            return books.filter(e => e.authorId === parent.id);
+         }
+      }
    })
 });
 
