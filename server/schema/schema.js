@@ -60,10 +60,7 @@ const rootQuery = new GraphQLObjectType({
    fields: {
       book: {
          type: BookType,
-         args: { 
-            // An id is expected
-            id: { type: GraphQLID } 
-         },
+         args: { id: { type: GraphQLID } },  // An id is expected
          resolve: (parent, args) => {
             // Get data from database
             return books.find(e => e.id === args.id);
@@ -71,16 +68,22 @@ const rootQuery = new GraphQLObjectType({
       },
       author: {
          type: AuthorType,
-         args: {
-            id: { type: GraphQLID },
-         },
+         args: { id: { type: GraphQLID } },
          resolve: (parent, args) => {
             return authors.find(e => e.id === args.id);
          }
       },
       books: {
          type: new GraphQLList(BookType),
-         resolve: (parent, args) => books
+         resolve: (parent, args) => {
+            return books; // All the books are returned
+         }
+      },
+      authors: {
+         type: new GraphQLList(AuthorType),
+         resolve: (parent, args) => {
+            return authors; // All the authors are returned
+         }
       }
    }
 });
