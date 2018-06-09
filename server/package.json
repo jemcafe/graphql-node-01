@@ -1,0 +1,8 @@
+{
+  "name": "graphql-node-01",
+  "version": "1.0.0",
+  "private": true,
+  "description": "graphql practice",
+  "main": "index.js",
+  "license": "MIT"
+}
