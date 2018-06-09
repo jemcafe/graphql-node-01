@@ -1,8 +1,12 @@
 {
   "name": "graphql-node-01",
   "version": "1.0.0",
-  "private": true,
   "description": "graphql practice",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.3",
+    "express-graphql": "^0.6.12",
+    "graphql": "^0.13.2"
+  }
 }
