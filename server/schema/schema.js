@@ -2,10 +2,10 @@ const graphql = require('graphql');
 
 const { 
    GraphQLSchema, 
-   GraphQLObjectType, 
-   GraphQLString,     // GraphqlString - string types
-   GraphQLInt,        // GraphqlInt - integer types
-   GraphQLID,         // GraphqlID - number or string types (ex. 2 or "2")
+   GraphQLObjectType, // GraphQLObjectType - object types
+   GraphQLString,     // GraphQLString - string types
+   GraphQLInt,        // GraphQLInt - integer types
+   GraphQLID,         // GraphQLID - number or string types (ex. 2 or "2")
    GraphQLList        // GraphQLList - list type
 } = graphql;
 
@@ -55,7 +55,7 @@ const AuthorType = new GraphQLObjectType({
 });
 
 // Query - When a book is queried, this object will be used
-const rootQuery = new GraphQLObjectType({
+const RootQuery = new GraphQLObjectType({
    name: 'RootQueryType',
    fields: {
       book: {
@@ -88,7 +88,25 @@ const rootQuery = new GraphQLObjectType({
    }
 });
 
+// Mutations - changes to the data (adding, deleteing, editing...)
+const Mutation = new GraphQLObjectType({
+   name: 'Mutation',
+   fields: {
+      addAuthor: {
+         type: AuthorType,
+         args: {
+            name: { type: GraphQLString },
+            age: { type: GraphQLInt }
+         },
+         resolve: (parent, args) => {
+            // code for database
+         }
+      }
+   }
+});
+
 // A new schema exported. The root query is used.
 module.exports = new GraphQLSchema({
-   query: rootQuery
+   query: RootQuery,
+   // mutation: Mutation
 });
