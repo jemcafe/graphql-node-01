@@ -7,3 +7,6 @@ Create a simple schema with graphql, query the data, mutate the data, and store 
 * express
 * express-graphql
 * graphql
+* sequelize
+* pg
+* pg-hstore
