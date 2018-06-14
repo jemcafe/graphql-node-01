@@ -7,7 +7,7 @@ module.exports = (sequelize, DataType) => {
 
    // Associations (references)
    Book.associate = models => {
-      // one-to-one (author must match the casing of the model name)
+      // one-to-one (The model's property name casing of the model name in define)
       Book.belongsTo(models.author , {
          foreignKey: 'author_id'
       });

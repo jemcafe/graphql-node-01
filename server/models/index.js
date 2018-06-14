@@ -1,19 +1,26 @@
 const Sequelize = require('sequelize');
-const operatorsAliases = require('./operatorsAliases')(Sequelize); // Sets the string aliases
+const operatorsAliases = require('./op/operatorsAliases')(Sequelize);
+
+// Configuration
+// The ssl (secure sockets layer) must be set to true when connecting over ssl.
+// For the latest version of sequelize, the operatorsAlias must be set
+const config = { 
+   dialect: 'postgres',
+   ssl: true,
+   dialectOptions: {
+      ssl: true
+   },
+   operatorsAliases
+};
+
 
 const sequelize = new Sequelize(
-   // process.env.DB_DATABASE,
-   // process.env.DB_USERNAME,
-   // process.env.DB_PASSWORD,
    process.env.CONNECTION_STRING,
-   { 
-      dialect: 'postgres',
-      operatorsAliases
-   }
+   config
 );
 
-sequelize
-  .authenticate()
+// Checks the connection
+sequelize.authenticate()
   .then(() => {
     console.log('Connection has been established successfully.');
   })
@@ -29,8 +36,9 @@ const models = {
 
 // Object.keys(obj) returns an array of object property names
 Object.keys(models).forEach(modelName => {
-   // If a model has an associate property
+   // If there's an associate property a model...
    if ('associate' in models[modelName]) {
+      // The associate method runs
       models[modelName].associate(models);
    }
 });
